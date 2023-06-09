@@ -1,6 +1,7 @@
 'use client'
 
-import { ErrorMessage, Field as FormikField } from 'formik'
+import { useEffect, useState } from 'react'
+import { ErrorMessage, Field as FormikField, useFormikContext } from 'formik'
 
 interface Props {
     name: string
@@ -9,6 +10,13 @@ interface Props {
 }
 
 const Field = ({ name, type = 'text', as = 'input' }: Props) => {
+    const formik = useFormikContext()
+    const [wasSubmitted, setWasSubmitted] = useState(false)
+
+    useEffect(() => {
+        if (formik.isSubmitting) setWasSubmitted(true)
+    }, [formik.isSubmitting])
+
     return (
         <div className="flex flex-col mb-1">
             <label
@@ -19,7 +27,7 @@ const Field = ({ name, type = 'text', as = 'input' }: Props) => {
             </label>
             <FormikField {...{ name, type, as }} />
             <div className="text-xs text-red-500 my-1">
-                <ErrorMessage {...{ name }} />
+                {wasSubmitted && <ErrorMessage {...{ name }} />}
             </div>
         </div>
     )

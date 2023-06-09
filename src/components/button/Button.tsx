@@ -11,6 +11,7 @@ interface Props extends ButtonProps {
 }
 
 const standardClassNames = [
+    'min-w-[6em]',
     'rounded',
     'self-center',
     'px-2',
@@ -31,11 +32,13 @@ const Button = ({
     children,
     variant = 'primary',
     size = 'medium',
+    className = '',
     ...buttonProps
 }: Props) => {
     return (
         <button
             className={ClassNames(
+                className,
                 standardClassNames,
                 variant === 'primary' ? primaryClassNames : [],
                 variant === 'secondary' ? textClassNames : [],

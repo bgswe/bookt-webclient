@@ -28,7 +28,9 @@ const LoginForm = () => {
                 <Field name="password" type="password" />
 
                 <div className="py-3">
-                    <Button type="submit">Login</Button>
+                    <Button type="submit" className="float-right">
+                        Login
+                    </Button>
                 </div>
             </Form>
         </Formik>

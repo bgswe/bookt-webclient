@@ -5,8 +5,11 @@ import { Form, Formik } from 'formik'
 
 import Button from '@/components/button'
 import Field from '@/components/field'
+import { useRouter } from 'next/navigation'
 
 const SignupForm = () => {
+    const router = useRouter()
+
     return (
         <Formik
             initialValues={{
@@ -24,7 +27,13 @@ const SignupForm = () => {
                         },
                         body: JSON.stringify(data),
                     }
-                ).then(console.log)
+                )
+                    .then((res) => {
+                        if (res.ok) {
+                            router.push('/u/')
+                        }
+                    })
+                    .catch(console.log)
             }}
             validationSchema={Yup.object({
                 organization_name: Yup.string().required(
@@ -38,33 +47,31 @@ const SignupForm = () => {
                     .required('Password is required'),
             })}
         >
-            {(formik) =>
-                console.log(formik.isSubmitting) || (
-                    <Form>
-                        <Field name="organization_name" />
-                        <Field
-                            name="admin_email"
-                            type="email"
-                            label="Admin user email"
-                        />
-                        <Field
-                            name="admin_password"
-                            type="password"
-                            label="Password"
-                        />
+            {(formik) => (
+                <Form>
+                    <Field name="organization_name" />
+                    <Field
+                        name="admin_email"
+                        type="email"
+                        label="Admin user email"
+                    />
+                    <Field
+                        name="admin_password"
+                        type="password"
+                        label="Password"
+                    />
 
-                        <div className="py-3">
-                            <Button
-                                type="submit"
-                                className="float-right"
-                                disabled={formik.isSubmitting}
-                            >
-                                Signup
-                            </Button>
-                        </div>
-                    </Form>
-                )
-            }
+                    <div className="py-3">
+                        <Button
+                            type="submit"
+                            className="float-right"
+                            disabled={formik.isSubmitting}
+                        >
+                            Signup
+                        </Button>
+                    </div>
+                </Form>
+            )}
         </Formik>
     )
 }

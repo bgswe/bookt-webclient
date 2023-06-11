@@ -19,7 +19,7 @@ const standardClassNames = [
     'font-medium',
 ]
 
-const primaryClassNames = ['bg-sky-700', 'text-white']
+const primaryClassNames = ['bg-sky-700', 'text-white', 'disabled:opacity-50']
 
 const textClassNames = [
     'bg-transparent',

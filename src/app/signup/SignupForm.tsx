@@ -18,16 +18,13 @@ const SignupForm = () => {
                 admin_password: '',
             }}
             onSubmit={async (data) => {
-                return fetch(
-                    'http://127.0.0.1:8000/command/create_organization/',
-                    {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(data),
-                    }
-                )
+                return fetch('http://127.0.0.1:8000/command/signup/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
                     .then((res) => {
                         if (res.ok) {
                             router.push('/u/')

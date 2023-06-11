@@ -5,22 +5,39 @@ import { Form, Formik } from 'formik'
 
 import Button from '@/components/button'
 import Field from '@/components/field'
+import { useRouter } from 'next/navigation'
 
 const LoginForm = () => {
+    const router = useRouter()
+
     return (
         <Formik
             initialValues={{
                 email: '',
                 password: '',
             }}
-            onSubmit={(d) => {
-                console.log('attempting login!', d)
+            onSubmit={(data) => {
+                return fetch('http://127.0.0.1:8000/command/login/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                })
+                    .then((res) => {
+                        if (res.ok) {
+                            // router.push('/u/')
+                        }
+                    })
+                    .catch(console.log)
             }}
             validationSchema={Yup.object({
                 email: Yup.string()
                     .email('Invalid email address')
                     .required('Email is required'),
-                password: Yup.string().min(8).required('Password is required'),
+                password: Yup.string()
+                    .min(8, 'Provided password is not long enough')
+                    .required('Password is required'),
             })}
         >
             <Form>

@@ -9,7 +9,7 @@ const ProtectedRoute = () => {
 
     useEffect(() => {
         if (!accessToken) {
-            fetch('http://localhost:8000/command/refresh', {
+            fetch('http://localhost:8000/auth/refresh', {
                 credentials: 'include',
             })
                 .then((r) => {

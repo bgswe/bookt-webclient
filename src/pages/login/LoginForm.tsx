@@ -22,7 +22,7 @@ const LoginForm = () => {
                 formData.append('username', data.email)
                 formData.append('password', data.password)
 
-                return fetch('http://localhost:8000/command/login', {
+                return fetch('http://localhost:8000/auth/login', {
                     method: 'POST',
                     body: formData,
                     credentials: 'include',
@@ -41,8 +41,12 @@ const LoginForm = () => {
                     .catch(console.log)
             }}
             validationSchema={Yup.object({
-                email: Yup.string().email('Invalid email address').required('Email is required'),
-                password: Yup.string().min(8, 'Provided password is not long enough').required('Password is required'),
+                email: Yup.string()
+                    .email('Invalid email address')
+                    .required('Email is required'),
+                password: Yup.string()
+                    .min(8, 'Provided password is not long enough')
+                    .required('Password is required'),
             })}
         >
             <Form>

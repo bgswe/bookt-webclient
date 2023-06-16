@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --background-start-rgb: 4, 105, 161;
+    --background-end-rgb: 229, 231, 235;
+}
+
+.page-gradient {
+    background: linear-gradient(
+        to top,
+        transparent,
+        rgb(var(--background-end-rgb)) 85%
+      )
+      rgb(var(--background-start-rgb));
+}
+
+input {
+    @apply
+        shadow-sm
+        appearance-none
+        border
+        rounded
+        w-full
+        m-[1px]
+        py-2
+        px-3
+        text-gray-700
+        leading-tight
+        text-sm
+        focus:outline-none
+        focus:border-sky-600
+        focus:border-2
+        focus:m-0;
+}

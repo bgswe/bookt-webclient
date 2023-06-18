@@ -1,14 +1,18 @@
-'use client'
-
 import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
+import { useNavigate } from 'react-router-dom'
 
+import useFetch from '@/api/fetch'
 import Button from '@/components/button'
 import Field from '@/components/field'
-import { useRouter } from 'next/navigation'
 
 const SignupForm = () => {
-    const router = useRouter()
+    const navigate = useNavigate()
+
+    const signup = useFetch('command/signup/', {
+        method: 'POST',
+        includeToken: false,
+    })
 
     return (
         <Formik
@@ -18,18 +22,8 @@ const SignupForm = () => {
                 admin_password: '',
             }}
             onSubmit={async (data) => {
-                return fetch('http://127.0.0.1:8000/command/signup/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(data),
-                })
-                    .then((res) => {
-                        if (res.ok) {
-                            router.push('/u/')
-                        }
-                    })
+                return signup(data)
+                    .then(() => navigate('/bookt/'))
                     .catch(console.log)
             }}
             validationSchema={Yup.object({

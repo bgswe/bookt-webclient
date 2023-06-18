@@ -2,42 +2,46 @@ import { AuthenticationContext } from '@/authentication-context'
 import { useContext } from 'react'
 
 type FetchOptions = {
+    method?: string
     includeToken?: boolean
-    json?: Object
 }
 
-const useFetch = (
-    url: string,
-    method: string = 'GET',
-    options?: FetchOptions
-) => {
+const useFetch = (url: string, options?: FetchOptions) => {
     const { accessToken } = useContext(AuthenticationContext)
 
-    const init: RequestInit = { method, credentials: 'include' }
     if (!options) {
         options = {}
     }
 
-    const { json, includeToken = true } = options
-
-    if (json) {
-        init.body = JSON.stringify(options.json)
+    const { method = 'GET', includeToken = true } = options
+    const headers = new Headers()
+    const init: RequestInit = {
+        method,
+        headers,
+        credentials: 'include',
     }
 
     if (includeToken) {
-        init.headers = new Headers({
-            Authorization: `Bearer ${accessToken}`,
-        })
+        headers.set('Authorization', `Bearer ${accessToken}`)
     }
 
-    return () =>
-        fetch(url, init).then((r) => {
+    return (json: Object) => {
+        if (json) {
+            headers.set('Content-Type', 'application/json')
+            init.body = JSON.stringify(json)
+        }
+
+        return fetch(
+            `${import.meta.env.VITE_BOOKT_API_ORIGIN}/${url}`,
+            init
+        ).then((r) => {
             if (!r.ok) {
                 throw r
             }
 
             return r.json()
         })
+    }
 }
 
 export default useFetch

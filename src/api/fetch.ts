@@ -25,7 +25,7 @@ const useFetch = (url: string, options?: FetchOptions) => {
         headers.set('Authorization', `Bearer ${accessToken}`)
     }
 
-    return (json: Object) => {
+    return (json?: Object) => {
         if (json) {
             headers.set('Content-Type', 'application/json')
             init.body = JSON.stringify(json)

@@ -22,7 +22,7 @@ const SignupForm = () => {
             }}
             onSubmit={async (data) => {
                 return signup(data)
-                    .then(() => navigate('/bookt/'))
+                    .then(() => navigate('/bookt'))
                     .catch(console.log)
             }}
             validationSchema={Yup.object({

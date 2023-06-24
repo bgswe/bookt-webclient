@@ -8,7 +8,7 @@ import ProtectedRoute from './ProtectedRoute'
 
 const router = createBrowserRouter([
     {
-        path: '/bookt/',
+        path: '/bookt',
         children: [
             {
                 path: '',

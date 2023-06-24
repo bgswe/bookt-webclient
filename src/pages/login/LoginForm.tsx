@@ -14,8 +14,8 @@ const LoginForm = () => {
     return (
         <Formik
             initialValues={{
-                email: '',
-                password: '',
+                email: 'admin@example.com',
+                password: 'password',
             }}
             onSubmit={(data) => {
                 const formData = new FormData()
@@ -36,7 +36,7 @@ const LoginForm = () => {
                     })
                     .then(({ access_token }) => {
                         setAccessToken(access_token)
-                        navigate('/bookt/')
+                        navigate('/bookt')
                     })
                     .catch(console.log)
             }}

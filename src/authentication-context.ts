@@ -2,7 +2,7 @@ import { createContext } from 'react'
 
 export const AuthenticationContext = createContext({
     accessToken: null,
-    setAccessToken: () => {
+    setAccessToken: (accessToken: string | null) => {
         throw Error('method to set token not implemented')
     },
 })

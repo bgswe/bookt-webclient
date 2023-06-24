@@ -19,7 +19,6 @@ const SignupForm = () => {
             initialValues={{
                 organization_name: '',
                 admin_email: '',
-                admin_password: '',
             }}
             onSubmit={async (data) => {
                 return signup(data)
@@ -33,9 +32,6 @@ const SignupForm = () => {
                 admin_email: Yup.string()
                     .email('Invalid email address')
                     .required('Email is required'),
-                admin_password: Yup.string()
-                    .min(8, 'Password must be between 8-20 characters')
-                    .required('Password is required'),
             })}
         >
             {(formik) => (
@@ -45,11 +41,6 @@ const SignupForm = () => {
                         name="admin_email"
                         type="email"
                         label="Admin user email"
-                    />
-                    <Field
-                        name="admin_password"
-                        type="password"
-                        label="Password"
                     />
 
                     <div className="py-3">

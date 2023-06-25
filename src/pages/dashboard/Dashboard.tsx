@@ -18,7 +18,7 @@ const Dashboard = () => {
     const handleLogout = useCallback(() => {
         logout().then(() => {
             setAccessToken(null)
-            navigate('/bookt/login/')
+            navigate('/bookt/login')
         })
     }, [])
 

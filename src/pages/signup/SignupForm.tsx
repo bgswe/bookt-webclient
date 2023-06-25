@@ -9,7 +9,7 @@ import Field from '@/components/field'
 const SignupForm = () => {
     const navigate = useNavigate()
 
-    const signup = useFetch('command/signup/', {
+    const signup = useFetch('command/signup', {
         method: 'POST',
         includeToken: false,
     })
@@ -22,7 +22,7 @@ const SignupForm = () => {
             }}
             onSubmit={async (data) => {
                 return signup(data)
-                    .then(() => navigate('/bookt'))
+                    .then(() => navigate('/bookt/login'))
                     .catch(console.log)
             }}
             validationSchema={Yup.object({
